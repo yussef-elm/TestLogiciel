@@ -1,0 +1,45 @@
+
+{
+java:S1192$"`Define a constant instead of duplicating this literal "Exception Null Objet en entrÃ©e" 5 times.(ðöÃ¤üÿÿÿÿ
+c
+java:S1104
+"MMake i a static final constant or non-public and provide accessors if needed.(¹žˆÂ
+c
+java:S1104"MMake j a static final constant or non-public and provide accessors if needed.(ý‹Âÿ
+h
+java:S1104"MMake a a static final constant or non-public and provide accessors if needed.(äÁ¥–úÿÿÿÿ
+c
+java:S1104"MMake b a static final constant or non-public and provide accessors if needed.(Â¯äµ
+c
+java:S1104"MMake c a static final constant or non-public and provide accessors if needed.(þîÒ‡
+h
+java:S1104"MMake d a static final constant or non-public and provide accessors if needed.(Ž¼«´üÿÿÿÿ
+j
+java:S1104"OMake dND a static final constant or non-public and provide accessors if needed.(ÔÚæáÿÿÿÿÿ
+j
+java:S1104"OMake dTA a static final constant or non-public and provide accessors if needed.(Ã«âãøÿÿÿÿ
+e
+java:S1104"OMake dRA a static final constant or non-public and provide accessors if needed.(º¤ö³
+p
+java:S1104"UMake dALTITUDE a static final constant or non-public and provide accessors if needed.(Ž«ºÄýÿÿÿÿ
+=
+java:S1444
+"'Make this "public static i" field final(¹žˆÂ
+=
+java:S1444"'Make this "public static j" field final(ý‹Âÿ
+B
+java:S1444"'Make this "public static a" field final(äÁ¥–úÿÿÿÿ
+=
+java:S1444"'Make this "public static b" field final(Â¯äµ
+=
+java:S1444"'Make this "public static c" field final(þîÒ‡
+B
+java:S1444"'Make this "public static d" field final(Ž¼«´üÿÿÿÿ
+D
+java:S1444")Make this "public static dND" field final(ÔÚæáÿÿÿÿÿ
+D
+java:S1444")Make this "public static dTA" field final(Ã«âãøÿÿÿÿ
+?
+java:S1444")Make this "public static dRA" field final(º¤ö³
+J
+java:S1444"/Make this "public static dALTITUDE" field final(Ž«ºÄýÿÿÿÿ

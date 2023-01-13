@@ -1,7 +1,7 @@
 package com.enseirb.models;
 
 import com.enseirb.tcas.TCAS;
-import com.enseirb.tcas.TCASAlert;
+import com.enseirb.ui.TCASAlert;
 import javafx.scene.control.TextArea;
 
 public class AirCraft {
@@ -33,6 +33,15 @@ public class AirCraft {
         new TCASAlert(messageArea).sendWarning(tcas.trafficDetector(other));
     }
 
+    public double getOtherRotatedX(AirCraft other){
+        return this.getX() + (other.getX()-this.getX())*Math.cos(-this.getDirection())
+                - (other.getY()-this.getY())*Math.sin(-this.getDirection()) ;
+    }
+
+    public double getOtherRotatedY(AirCraft other){
+        return this.getY() +(other.getX()-this.getX())*Math.sin(-this.getDirection())
+                + (other.getY()-this.getY())*Math.cos(-this.getDirection());
+    }
 
     public double getX() {
         return x;
@@ -41,12 +50,17 @@ public class AirCraft {
     public double getY() {
         return y;
     }
+
     public String getName() {
         return name;
     }
 
     public int getAltitude() {
         return altitude;
+    }
+
+    public double getDirection() {
+        return direction;
     }
 
 }

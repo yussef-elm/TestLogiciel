@@ -38,8 +38,10 @@ public class TCASSimulation extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        mainAircraft = new AirCraft("TF234",400, 240, 0.5, 10000,Math.PI / 4);
-        other = new AirCraft("TF333",50, 400, 0.5, 10090,-Math.PI / 8);
+
+        // Aicraft d'entrée
+        mainAircraft = new AirCraft("TF234",60, 200, 0.4, 10000,2*Math.PI );
+        other = new AirCraft("TF333",60, 350, 0.4, 10090,-Math.PI/8);
 
 
         VBox vbox = new VBox();
@@ -70,36 +72,13 @@ public class TCASSimulation extends Application {
                 " -fx-font-weight: bold;-fx-border-color: red; -fx-border-width: 3px;");
         messageArea2.setPrefRowCount(1);
 
-        Ellipse ellipseND = new Ellipse();
-        ellipseND.setCenterX(mainAircraft.getX()+80);
-        ellipseND.setCenterY(mainAircraft.getY());
-        ellipseND.setRadiusX(250);
-        ellipseND.setRadiusY(120);
-        ellipseND.setFill(Color.rgb(255, 255, 0, 0.3));
-
-        Ellipse ellipseTA = new Ellipse();
-        ellipseTA.setCenterX(mainAircraft.getX()+50);
-        ellipseTA.setCenterY(mainAircraft.getY());
-        ellipseTA.setRadiusX(200);
-        ellipseTA.setRadiusY(100);
-        ellipseTA.setFill(Color.rgb(0, 255, 0, 0.3));
-
-        Ellipse ellipseRA = new Ellipse();
-        ellipseRA.setCenterX(mainAircraft.getX()+20);
-        ellipseRA.setCenterY(mainAircraft.getY());
-        ellipseRA.setRadiusX(100);
-        ellipseRA.setRadiusY(50);
-        ellipseRA.setFill(Color.rgb(255, 0, 0, 0.3));
-
         canvas = new Canvas(900, 400);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         BorderPane root = new BorderPane();
         root.setCenter(canvas);
         root.setBottom(vbox);
-        root.getChildren().add(ellipseTA);
-        root.getChildren().add(ellipseRA);
-        root.getChildren().add(ellipseND);
+        primaryStage.setResizable(false);
         primaryStage.setTitle(" Traffic Collision Avoidance System (TCAS)\n");
         primaryStage.getIcons().add(planeImage);
         primaryStage.setScene(new Scene(root));
@@ -110,6 +89,7 @@ public class TCASSimulation extends Application {
             @Override
             public void handle(long now) {
                 other.updatePosition();
+                mainAircraft.updatePosition();
                 mainAircraft.skyControle(other,messageArea1);
                 other.skyControle(mainAircraft,messageArea2);
                 drawAircrafts(gc);
@@ -120,8 +100,26 @@ public class TCASSimulation extends Application {
     private void drawAircrafts(GraphicsContext gc) {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (AirCraft aircraft : airCrafts) {
-            gc.drawImage(planeImage, aircraft.getX()-30, aircraft.getY()-20,30,30);
+                gc.save();
+                gc.translate(aircraft.getX()+80* Math.cos(aircraft.getDirection()), aircraft.getY()+80* Math.sin(aircraft.getDirection()));
+                gc.rotate(Math.toDegrees(aircraft.getDirection()));
+                gc.setFill(Color.rgb(255, 255, 0, 0.3));
+                gc.fillOval(-250, -120, 500, 240);
+                gc.restore();
+                gc.save();
+                gc.translate(aircraft.getX()+50* Math.cos(aircraft.getDirection()), aircraft.getY()+50* Math.sin(aircraft.getDirection()));
+                gc.rotate(Math.toDegrees(aircraft.getDirection()));
+                gc.setFill(Color.rgb(0, 255, 0, 0.3));
+                gc.fillOval(-200, -100, 400, 200);
+                gc.restore();
+                gc.save();
+                gc.translate(aircraft.getX()+20* Math.cos(aircraft.getDirection()), aircraft.getY()+ 20* Math.sin(aircraft.getDirection()));
+                gc.rotate(Math.toDegrees(aircraft.getDirection()));
+                gc.setFill(Color.rgb(255, 0, 0, 0.3));
+                gc.fillOval(-100, -50, 200, 100);
+                gc.restore();
             gc.fillOval(aircraft.getX(), aircraft.getY(), 5, 5);
+            gc.drawImage(planeImage, aircraft.getX()-30, aircraft.getY()-20,30,30);
             gc.setFont(new Font(10));
             gc.fillText(aircraft.getName(), aircraft.getX()+5, aircraft.getY() - 4);
             gc.setFont(new Font(8));

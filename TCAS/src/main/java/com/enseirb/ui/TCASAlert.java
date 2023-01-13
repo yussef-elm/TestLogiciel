@@ -1,4 +1,4 @@
-package com.enseirb.tcas;
+package com.enseirb.ui;
 
 import javafx.scene.control.TextArea;
 

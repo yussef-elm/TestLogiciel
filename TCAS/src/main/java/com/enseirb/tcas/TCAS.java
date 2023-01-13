@@ -24,10 +24,12 @@ public class TCAS {
         this.airCraft = airCraft;
     }
 
+
+
     public boolean isInND(AirCraft other) {
             if (other != null) {
-                double dx = airCraft.getX() + dND - other.getX();
-                double dy = airCraft.getY() - other.getY();
+                double dx = airCraft.getOtherRotatedX(other) -(airCraft.getX()+dND);
+                double dy = airCraft.getOtherRotatedY(other)-airCraft.getY();
                 double dz = Math.abs(airCraft.getAltitude() - other.getAltitude());
                 return ((dx * dx) / (i * i) + (dy * dy) / (j * j) <= 1) && dz < dALTITUDE;
             }else{
@@ -38,8 +40,8 @@ public class TCAS {
 
     public boolean isInTA(AirCraft other) {
         if(other!=null) {
-            double dx = airCraft.getX() + dTA - other.getX();
-            double dy = airCraft.getY() - other.getY();
+            double dx = airCraft.getOtherRotatedX(other) - (airCraft.getX()+dTA);
+            double dy = airCraft.getOtherRotatedY(other) -  airCraft.getY();
             double dz = Math.abs(airCraft.getAltitude() - other.getAltitude());
             return ((dx * dx) / (a * a) + (dy * dy) / (b * b) <= 1) && dz < dALTITUDE;
         }else{
@@ -49,8 +51,8 @@ public class TCAS {
 
     public boolean isInRA(AirCraft other) {
         if (other!=null) {
-            double dx = airCraft.getX() + dRA - other.getX();
-            double dy = airCraft.getY() - other.getY();
+            double dx = airCraft.getOtherRotatedX(other) -(airCraft.getX()+dRA);
+            double dy = airCraft.getOtherRotatedY(other) -airCraft.getY();
             double dz = Math.abs(airCraft.getAltitude() - other.getAltitude());
             return ((dx * dx) / (c * c) + (dy * dy) / (d * d) <= 1) && dz < dALTITUDE;
         }else{
@@ -60,8 +62,8 @@ public class TCAS {
 
     public boolean isInCLEAR(AirCraft other) {
         if (other!=null) {
-            double dx = airCraft.getX() + dND - other.getX();
-            double dy = airCraft.getY() - other.getY();
+            double dx = airCraft.getOtherRotatedX(other) -(airCraft.getX()+dND);
+            double dy = airCraft.getOtherRotatedY(other) -airCraft.getY();
             double dz = Math.abs(airCraft.getAltitude() - other.getAltitude());
             return !(((dx * dx) / (i * i) + (dy * dy) / (j * j) <= 1) && dz < dALTITUDE);
         }else{
@@ -72,7 +74,8 @@ public class TCAS {
     public String trafficDetector(AirCraft other ) {
         String message="" ;
         if(other!=null) {
-            if (airCraft.tcas.isInCLEAR(other) || (airCraft.tcas.isInND(other) && !airCraft.tcas.isInTA(other) && !airCraft.tcas.isInRA(other))) {
+            if (airCraft.tcas.isInCLEAR(other) || (airCraft.tcas.isInND(other)
+                    && !airCraft.tcas.isInTA(other) && !airCraft.tcas.isInRA(other))) {
                     message="";
             } else if (airCraft.tcas.isInND(other) && airCraft.tcas.isInTA(other) && !airCraft.tcas.isInRA(other)) {
                     message = "ALERT : Traffic, Traffic!".toUpperCase(Locale.ROOT)+"\n";
@@ -90,5 +93,8 @@ public class TCAS {
         }
         return message;
     }
+
+
+
 
 }
